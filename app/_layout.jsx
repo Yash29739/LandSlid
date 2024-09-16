@@ -3,7 +3,7 @@ import {SplashScreen,Stack} from 'expo-router'
 import {useFonts} from 'expo-font'
 import { useEffect } from "react"
 import React from 'react'
-
+import {GlobalProvider} from '../context/GlobalProvider'
 SplashScreen.preventAutoHideAsync();
 const Rootlayout = () => {
   const [fontsLoaded,error]=useFonts({
@@ -29,18 +29,30 @@ const Rootlayout = () => {
     return null;
   }
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
+  if (!fontsLoaded && !error) return null;
 
 
   return (
+  <GlobalProvider>
     <Stack>
       <Stack.Screen
-        name='index'
+        name="index"
         options={{headerShown:false}}
-      />
+        />
+      <Stack.Screen
+        name="(auth)"
+        options={{headerShown:false}}
+        />
+      <Stack.Screen
+        name="(tabs)"
+        options={{headerShown:false}}
+        />
+      {/* <Stack.Screen
+        name='/search/[query]'
+        options={{headerShown:false}}
+      /> */}
     </Stack>
+  </GlobalProvider>
   )
 }
 
